@@ -12,97 +12,131 @@
 
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0b0b0b;
-            color: #ffffff;
+            color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         header {
-            padding: 32px;
+            padding: 40px 20px 20px;
             text-align: center;
             border-bottom: 1px solid #1f1f1f;
         }
 
         header h1 {
             margin: 0;
-            font-size: 36px;
-            font-weight: 600;
+            font-size: 42px;
+            font-weight: 700;
+            color: #ff9800;
         }
 
         header p {
             margin-top: 8px;
-            font-size: 14px;
-            color: #ff9800;
+            font-size: 18px;
             letter-spacing: 1px;
         }
 
         main {
             flex: 1;
-            padding: 40px;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
         }
 
         .products {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 24px;
-            max-width: 900px;
             width: 100%;
+            max-width: 1200px;
         }
 
         .product {
             background: #141414;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 16px;
             text-align: center;
+            position: relative;
             border: 1px solid #1f1f1f;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.3);
         }
 
         .product img {
-            max-width: 140px;
-            height: auto;
-            margin-bottom: 16px;
+            width: 100%;
+            max-width: 150px;
+            margin-bottom: 12px;
         }
 
         .product h2 {
-            margin: 0 0 6px;
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        .product .price {
             font-size: 16px;
-            color: #4caf50;
-            margin-bottom: 14px;
+            margin: 8px 0;
         }
 
-        .product button {
+        .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #ff0055;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .rating {
+            font-size: 12px;
+            color: #ffcc00;
+            margin-bottom: 6px;
+        }
+
+        .price {
+            font-size: 14px;
+            color: #ff5555;
+            margin-bottom: 12px;
+        }
+
+        .price .old {
+            text-decoration: line-through;
+            color: #aaa;
+            margin-right: 6px;
+        }
+
+        .buy-btn {
             width: 100%;
             padding: 10px;
             background: #ff1744;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             color: white;
             font-size: 14px;
-            cursor: not-allowed;
-            opacity: 0.6;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .buy-btn:hover {
+            background: #ff0055;
         }
 
         footer {
-            position: fixed;
-            bottom: 12px;
-            right: 16px;
+            text-align: center;
+            padding: 12px 20px;
             font-size: 12px;
             color: #777;
+            border-top: 1px solid #1f1f1f;
         }
 
         @media (max-width: 600px) {
             main {
-                padding: 20px;
+                padding: 20px 10px;
             }
         }
     </style>
@@ -110,21 +144,71 @@
 <body>
 
 <header>
-    <h1>15k Store</h1>
-    <p>UNDER MAINTENANCE</p>
+    <h1>🔥 NEU: RANDOM TORNADO 15K 🔥</h1>
+    <p>🔥 PERFEKTER ALLROUNDER 🔥</p>
 </header>
 
 <main>
     <section class="products">
         <!-- Product 1 -->
         <div class="product">
+            <div class="badge">ANGEBOT</div>
             <img src="15kstrawberry-redbull.webp" alt="Strawberry Red Bull">
-            <h2>15k Strawberry Red Bull</h2>
-            <div class="price">10€</div>
-            <button disabled>Buy</button>
+            <h2>Strawberry Red Bull</h2>
+            <div class="rating">⭐️⭐️⭐️⭐️⭐️ (2)</div>
+            <div class="price"><span class="old">€30,99</span> €15,99</div>
+            <button class="buy-btn">Buy</button>
         </div>
 
-        <!-- Add more products here later -->
+        <!-- Product 2 -->
+        <div class="product">
+            <div class="badge">ANGEBOT</div>
+            <img src="pink-lemonade.png" alt="Pink Lemonade">
+            <h2>Pink Lemonade</h2>
+            <div class="rating">⭐️⭐️⭐️⭐️⭐️ (1)</div>
+            <div class="price"><span class="old">€30,99</span> €15,99</div>
+            <button class="buy-btn">Buy</button>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product">
+            <div class="badge">ANGEBOT</div>
+            <img src="mr-blue.png" alt="Mr Blue">
+            <h2>Mr Blue</h2>
+            <div class="rating">⭐️⭐️⭐️⭐️⭐️ (1)</div>
+            <div class="price"><span class="old">€30,99</span> €15,99</div>
+            <button class="buy-btn">Buy</button>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product">
+            <div class="badge">ANGEBOT</div>
+            <img src="peach-berry.png" alt="Peach Berry">
+            <h2>Peach Berry</h2>
+            <div class="rating">⭐️⭐️⭐️⭐️⭐️ (1)</div>
+            <div class="price"><span class="old">€30,99</span> €15,99</div>
+            <button class="buy-btn">Buy</button>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product">
+            <div class="badge">ANGEBOT</div>
+            <img src="cherry-cola.png" alt="Cherry Cola">
+            <h2>Cherry Cola</h2>
+            <div class="rating">⭐️⭐️⭐️⭐️⭐️ (1)</div>
+            <div class="price"><span class="old">€30,99</span> €15,99</div>
+            <button class="buy-btn">Buy</button>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product">
+            <div class="badge">ANGEBOT</div>
+            <img src="watermelon-ice.png" alt="Watermelon Ice">
+            <h2>Watermelon Ice</h2>
+            <div class="rating">⭐️⭐️⭐️⭐️⭐️ (1)</div>
+            <div class="price"><span class="old">€30,99</span> €15,99</div>
+            <button class="buy-btn">Buy</button>
+        </div>
     </section>
 </main>
 
