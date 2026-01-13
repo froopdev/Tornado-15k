@@ -9,43 +9,38 @@ A beautiful, minimalist web application that displays your currently playing Spo
 - 📱 **Mobile Responsive**: Seamlessly adapts to different screen sizes
 - 🔄 **Fallback Behavior**: Shows the last played song when nothing is currently playing
 - ⚡ **Progress Bar**: Visual progress indicator with time display
-- 🎭 **Play/Pause Indicator**: Shows the current playback state
+- 🎭 **Playback Status**: Shows whether a track is playing, paused, or was last played
 
 ## Setup Instructions
 
-### 1. Create a Spotify Developer Account
+### 1. Get Your Spotify Access Token
 
-1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
-2. Log in with your Spotify account (or create one if you don't have it)
-3. Click "Create an App"
-4. Fill in the app details:
-   - **App Name**: Spotify Now Playing (or any name you prefer)
-   - **App Description**: A web app to display currently playing tracks
-   - **Redirect URI**: Add your website URL (e.g., `http://localhost:8000` for local testing or your production URL)
-5. Check the agreement box and click "Create"
+1. Go to [Spotify Web API Console](https://developer.spotify.com/console/get-users-currently-playing-track/)
+2. Click the **"Get Token"** button
+3. Select the following scopes:
+   - `user-read-currently-playing`
+   - `user-read-playback-state`
+   - `user-read-recently-played`
+4. Click **"Request Token"**
+5. Copy the **OAuth Token** that appears
 
-### 2. Get Your Client ID
+**Note**: Tokens expire after 1 hour. You'll need to generate a new token when it expires.
 
-1. Once your app is created, you'll see the **Client ID** on the app dashboard
-2. Copy this Client ID
-
-### 3. Configure the Application
+### 2. Configure the Application
 
 1. Open `index.html` in a text editor
 2. Find the line that says:
    ```javascript
-   const CLIENT_ID = 'YOUR_SPOTIFY_CLIENT_ID';
+   const ACCESS_TOKEN = 'YOUR_SPOTIFY_ACCESS_TOKEN';
    ```
-3. Replace `'YOUR_SPOTIFY_CLIENT_ID'` with your actual Client ID from step 2
-4. Make sure the `REDIRECT_URI` matches the URL where you'll host the application
+3. Replace `'YOUR_SPOTIFY_ACCESS_TOKEN'` with the token you copied in step 1
 
 **Security Note**: 
-- For client-side web apps, the Client ID is exposed in the browser and this is expected by Spotify's OAuth flow
-- However, **never commit your real Client ID to public repositories** if you want to keep your app private
-- The Client Secret should NEVER be included in client-side code (this implementation uses Implicit Grant Flow which doesn't require the secret)
-- For production apps, consider using environment variables or a build process to inject credentials
+- This is a personal application designed for single-user use
+- Keep your access token private and never commit it to public repositories
+- Tokens expire after 1 hour for security reasons
 
-### 4. Deploy the Application
+### 3. Deploy the Application
 
 #### Option A: Local Testing with Python
 ```bash
@@ -81,39 +76,28 @@ Then open your browser and go to `http://localhost:8000`
 2. Go to repository Settings → Pages
 3. Select the branch and folder to deploy from
 4. Your site will be available at `https://yourusername.github.io/repository-name`
-5. **Important**: Add this URL to your Spotify App's Redirect URIs in the Developer Dashboard
 
 #### Option D: Deploy to Netlify, Vercel, or other hosting services
 
-Simply deploy the `index.html` file and make sure to update the Redirect URI in your Spotify app settings.
-
-### 5. Update Redirect URI in Spotify Dashboard
-
-1. Go back to your [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
-2. Click on your app
-3. Click "Edit Settings"
-4. Under "Redirect URIs", add the URL where your app is hosted
-   - For local testing: `http://localhost:8000/`
-   - For production: Your actual domain URL (e.g., `https://yourusername.github.io/spotify-player/`)
-5. Click "Add" then "Save"
+Simply deploy the `index.html` file.
 
 ## Usage
 
 1. Open the application in your web browser
-2. Click the "Connect Spotify" button
-3. You'll be redirected to Spotify to authorize the app
-4. After authorization, you'll be redirected back to the app
+2. The app will automatically start displaying your currently playing track
+3. If nothing is playing, it will show your last played track
 5. The app will now display your currently playing track
 6. If nothing is playing, it will show your last played track
 
 ## How It Works
 
 ### Authentication
-The app uses Spotify's OAuth 2.0 Implicit Grant Flow:
-1. User clicks "Connect Spotify"
-2. Redirected to Spotify authorization page
-3. After approval, Spotify redirects back with an access token in the URL fragment
-4. Token is stored in session storage for subsequent API calls
+The app uses a hardcoded Spotify access token for personal use:
+1. You generate a token from Spotify's Web API Console
+2. The token is hardcoded in the application
+3. Token is used for all API calls
+
+**Note**: Tokens expire after 1 hour. You'll need to generate a new token and update the code when it expires.
 
 ### Data Fetching
 - The app polls the Spotify API every 5 seconds
@@ -127,18 +111,16 @@ The app uses Spotify's OAuth 2.0 Implicit Grant Flow:
 
 ## Troubleshooting
 
-### "Invalid Client" Error
-- Make sure your Client ID is correct
-- Verify the Redirect URI matches exactly (including trailing slashes)
+### Token Expired Error
+- Tokens expire after 1 hour for security reasons
+- Generate a new token from the [Spotify Web API Console](https://developer.spotify.com/console/get-users-currently-playing-track/)
+- Update the `ACCESS_TOKEN` constant in `index.html`
 
-### Nothing Shows After Login
+### Nothing Shows After Opening
 - Check browser console for errors
+- Verify your access token is valid
 - Ensure you have played at least one song on Spotify
-- Try playing a song on Spotify and wait a few seconds
-
-### Token Expired
-- Tokens expire after 1 hour
-- The app will automatically redirect you to login again when the token expires
+- Try playing a song on Spotify and wait 5 seconds for the update
 
 ### API Rate Limiting
 - The app polls Spotify every 5 seconds by default
@@ -154,7 +136,8 @@ The app uses Spotify's OAuth 2.0 Implicit Grant Flow:
 
 ## Privacy & Security
 
-- Your access token is stored only in session storage (cleared when you close the tab)
+- This is a personal application designed for single-user use
+- Your access token is hardcoded in the application
 - No data is sent to any third-party servers
 - All API calls are made directly to Spotify from your browser
 - The app only requests read permissions for your currently playing and recently played tracks
