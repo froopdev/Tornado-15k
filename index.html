@@ -1,148 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Soon</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soon</title>
 
-<!-- Modern font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
 
-<style>
-:root {
-    --bg-1: #0b0f1a;
-    --bg-2: #12192c;
-    --glass: rgba(255, 255, 255, 0.08);
-    --border: rgba(255, 255, 255, 0.15);
-    --text-main: rgba(255, 255, 255, 0.95);
-    --text-muted: rgba(255, 255, 255, 0.55);
-}
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(160deg, #0f2027, #203a43, #2c5364);
+            --card-gradient: linear-gradient(145deg, #ffffff15, #ffffff05);
+            --text-main: #ffffff;
+            --text-accent: #00d2ff;
+            --card-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+        }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    min-height: 100vh;
-    font-family: 'Inter', system-ui, sans-serif;
-    background:
-        radial-gradient(1200px 600px at 10% 10%, #1c2440 0%, transparent 60%),
-        radial-gradient(1000px 500px at 90% 80%, #1a2a3f 0%, transparent 55%),
-        linear-gradient(160deg, var(--bg-1), var(--bg-2));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    color: var(--text-main);
-}
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-gradient);
+            font-family: 'Lexend', sans-serif;
+            overflow: hidden;
+            color: var(--text-main);
+        }
 
-/* subtle animated grain */
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none;
-}
+        .reactive-square {
+            position: relative;
+            width: 50vmin;
+            aspect-ratio: 1/1;
+            border-radius: 24px;
+            background: var(--card-gradient);
+            backdrop-filter: blur(20px) saturate(150%);
+            border: 2px solid var(--card-border);
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-/* Center card */
-.card {
-    width: min(420px, 88vw);
-    aspect-ratio: 1 / 1;
-    background: linear-gradient(
-        145deg,
-        rgba(255,255,255,0.12),
-        rgba(255,255,255,0.03)
-    );
-    border: 1px solid var(--border);
-    border-radius: 28px;
-    backdrop-filter: blur(22px) saturate(140%);
-    box-shadow:
-        0 30px 80px rgba(0,0,0,0.55),
-        inset 0 1px 1px rgba(255,255,255,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2.5rem;
-    animation: float 8s ease-in-out infinite;
-}
+        /* 3D Interactive Hover */
+        .reactive-square:hover {
+            transform: rotateX(15deg) rotateY(15deg);
+        }
 
-/* Text */
-.card h1 {
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
-    line-height: 1.25;
-}
+        /* Inner Glow Effect */
+        .reactive-square::before {
+            content: '';
+            position: absolute;
+            inset: -4%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #00d2ff25, transparent, #00d2ff25);
+            animation: pulse 6s infinite alternate;
+            z-index: -1;
+        }
 
-/* Accent underline */
-.card h1 span {
-    display: inline-block;
-    position: relative;
-}
+        .text {
+            font-size: clamp(1.6rem, 3vmin, 2.2rem);
+            font-weight: 500;
+            text-align: center;
+            color: var(--text-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease forwards;
+        }
 
-.card h1 span::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -0.35em;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #ffffffaa, transparent);
-    opacity: 0.6;
-}
+        .footer {
+            position: fixed;
+            bottom: 24px;
+            right: 28px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
 
-/* Footer */
-.footer {
-    position: fixed;
-    bottom: 24px;
-    right: 28px;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
+        .footer:hover {
+            opacity: 1;
+            transform: translateY(-4px);
+            color: var(--text-accent);
+        }
 
-.footer:hover {
-    opacity: 1;
-    transform: translateY(-4px);
-}
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-12px) scale(1.03);
+            }
+        }
 
-/* Motion */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-14px);
-    }
-}
+        @keyframes pulse {
+            from {
+                opacity: 0.4;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
-/* Mobile tuning */
-@media (max-width: 480px) {
-    .footer {
-        bottom: 16px;
-        right: 18px;
-    }
-}
-</style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 480px) {
+            .footer {
+                bottom: 16px;
+                right: 16px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="reactive-square">
+        <div class="text">Big Money never comes clean</div>
+    </div>
 
-<div class="card">
-    <h1>
-        <span>Big money never comes clean</span>
-    </h1>
-</div>
-
-<div class="footer">
-    Soon — Benne
-</div>
-
+    <div class="footer">Soon ~ Benne</div>
 </body>
 </html>
