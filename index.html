@@ -22,36 +22,22 @@
             overflow: hidden;
         }
 
-        .main-text {
+        .center-square {
+            width: 300px;
+            height: 300px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            font-size: 3rem;
-            font-weight: bold;
-            padding: 2rem;
-            animation: colorFade 12s ease-in-out infinite;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        @keyframes colorFade {
-            0% {
-                color: #0000ff;
-            }
-            16.66% {
-                color: #9400d3;
-            }
-            33.33% {
-                color: #ff0000;
-            }
-            50% {
-                color: #ff7f00;
-            }
-            66.66% {
-                color: #ffff00;
-            }
-            83.33% {
-                color: #00ff00;
-            }
-            100% {
-                color: #0000ff;
-            }
+        .center-square .text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000000;
         }
 
         .footer {
@@ -70,9 +56,13 @@
 
         /* Responsive design */
         @media (max-width: 768px) {
-            .main-text {
-                font-size: 2rem;
-                padding: 1.5rem;
+            .center-square {
+                width: 250px;
+                height: 250px;
+            }
+
+            .center-square .text {
+                font-size: 1.2rem;
             }
 
             .footer {
@@ -83,9 +73,13 @@
         }
 
         @media (max-width: 480px) {
-            .main-text {
-                font-size: 1.5rem;
-                padding: 1rem;
+            .center-square {
+                width: 200px;
+                height: 200px;
+            }
+
+            .center-square .text {
+                font-size: 1rem;
             }
 
             .footer {
@@ -97,12 +91,14 @@
     </style>
 </head>
 <body>
-    <div class="main-text">
-        My life is about alcohol &amp; drugs
+    <div class="center-square">
+        <div class="text">
+            Big Money never comes clean
+        </div>
     </div>
 
     <div class="footer">
-        Owned and maintained by Benedikt Weller.
+        Soon ~ Benne
     </div>
 </body>
 </html>
