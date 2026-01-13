@@ -628,8 +628,8 @@
             document.getElementById('trackName').textContent = track.name;
             document.getElementById('trackArtist').textContent = track.artists.map(a => a.name).join(', ');
 
-            // Update album art
-            const albumArt = track.album.images[0]?.url || '';
+            // Update album art (with safe optional chaining)
+            const albumArt = track.album?.images?.[0]?.url || '';
             if (albumArt) {
                 document.getElementById('albumArt').src = albumArt;
             }
@@ -658,11 +658,11 @@
                 document.getElementById('playPauseBtn').textContent = '▶';
             }
 
-            // Update progress
+            // Update progress (with safe division check)
             if (!isRecentlyPlayed) {
                 const progress = data.progress_ms || 0;
-                const duration = track.duration_ms;
-                const progressPercent = (progress / duration) * 100;
+                const duration = track.duration_ms || 0;
+                const progressPercent = duration > 0 ? (progress / duration) * 100 : 0;
 
                 document.getElementById('progressBar').style.width = `${progressPercent}%`;
                 document.getElementById('currentTime').textContent = formatTime(progress);
@@ -670,7 +670,7 @@
             } else {
                 document.getElementById('progressBar').style.width = '0%';
                 document.getElementById('currentTime').textContent = '0:00';
-                document.getElementById('totalTime').textContent = formatTime(track.duration_ms);
+                document.getElementById('totalTime').textContent = formatTime(track.duration_ms || 0);
             }
         }
 
