@@ -39,6 +39,12 @@ A beautiful, minimalist web application that displays your currently playing Spo
 3. Replace `'YOUR_SPOTIFY_CLIENT_ID'` with your actual Client ID from step 2
 4. Make sure the `REDIRECT_URI` matches the URL where you'll host the application
 
+**Security Note**: 
+- For client-side web apps, the Client ID is exposed in the browser and this is expected by Spotify's OAuth flow
+- However, **never commit your real Client ID to public repositories** if you want to keep your app private
+- The Client Secret should NEVER be included in client-side code (this implementation uses Implicit Grant Flow which doesn't require the secret)
+- For production apps, consider using environment variables or a build process to inject credentials
+
 ### 4. Deploy the Application
 
 #### Option A: Local Testing with Python
@@ -133,6 +139,11 @@ The app uses Spotify's OAuth 2.0 Implicit Grant Flow:
 ### Token Expired
 - Tokens expire after 1 hour
 - The app will automatically redirect you to login again when the token expires
+
+### API Rate Limiting
+- The app polls Spotify every 5 seconds by default
+- If you experience rate limiting issues, you can increase the `UPDATE_INTERVAL_MS` constant in the code
+- Spotify's rate limits are typically generous for personal use
 
 ## Browser Compatibility
 
