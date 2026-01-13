@@ -86,8 +86,6 @@ Simply deploy the `index.html` file.
 1. Open the application in your web browser
 2. The app will automatically start displaying your currently playing track
 3. If nothing is playing, it will show your last played track
-5. The app will now display your currently playing track
-6. If nothing is playing, it will show your last played track
 
 ## How It Works
 
