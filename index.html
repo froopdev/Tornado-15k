@@ -1,120 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>soon</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Soon</title>
 
-        body {
-            background: linear-gradient(135deg, #141e30, #243b55);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Poppins', sans-serif;
-            position: relative;
-            overflow: hidden;
-        }
+<!-- Modern font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        .center-square {
-            width: 320px;
-            height: 320px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 -2px 4px rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            animation: float 6s ease-in-out infinite;
-        }
+<style>
+:root {
+    --bg-1: #0b0f1a;
+    --bg-2: #12192c;
+    --glass: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.15);
+    --text-main: rgba(255, 255, 255, 0.95);
+    --text-muted: rgba(255, 255, 255, 0.55);
+}
 
-        .center-square .text {
-            font-size: clamp(1.5rem, 2vw, 2rem);
-            font-weight: 600;
-            color: #ffffff;
-            text-transform: uppercase;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 2s ease forwards;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        .footer {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: clamp(0.8rem, 1vw, 1rem);
-            font-style: italic;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
+body {
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, sans-serif;
+    background:
+        radial-gradient(1200px 600px at 10% 10%, #1c2440 0%, transparent 60%),
+        radial-gradient(1000px 500px at 90% 80%, #1a2a3f 0%, transparent 55%),
+        linear-gradient(160deg, var(--bg-1), var(--bg-2));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: var(--text-main);
+}
 
-        .footer:hover {
-            opacity: 1;
-            transform: translateY(-5px);
-        }
+/* subtle animated grain */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
 
-        /* Keyframes */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
+/* Center card */
+.card {
+    width: min(420px, 88vw);
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.12),
+        rgba(255,255,255,0.03)
+    );
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    backdrop-filter: blur(22px) saturate(140%);
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.55),
+        inset 0 1px 1px rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2.5rem;
+    animation: float 8s ease-in-out infinite;
+}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
+/* Text */
+.card h1 {
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    line-height: 1.25;
+}
 
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .center-square {
-                width: 280px;
-                height: 280px;
-            }
+/* Accent underline */
+.card h1 span {
+    display: inline-block;
+    position: relative;
+}
 
-            .footer {
-                bottom: 15px;
-                right: 15px;
-            }
-        }
+.card h1 span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.35em;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ffffffaa, transparent);
+    opacity: 0.6;
+}
 
-        @media (max-width: 480px) {
-            .center-square {
-                width: 240px;
-                height: 240px;
-            }
+/* Footer */
+.footer {
+    position: fixed;
+    bottom: 24px;
+    right: 28px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
 
-            .footer {
-                bottom: 10px;
-                right: 10px;
-                font-size: 0.8rem;
-            }
-        }
-    </style>
+.footer:hover {
+    opacity: 1;
+    transform: translateY(-4px);
+}
+
+/* Motion */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-14px);
+    }
+}
+
+/* Mobile tuning */
+@media (max-width: 480px) {
+    .footer {
+        bottom: 16px;
+        right: 18px;
+    }
+}
+</style>
 </head>
-<body>
-    <div class="center-square">
-        <div class="text">
-            Big Money never comes clean
-        </div>
-    </div>
 
-    <div class="footer">
-        Soon ~ Benne
-    </div>
+<body>
+
+<div class="card">
+    <h1>
+        <span>Big money never comes clean</span>
+    </h1>
+</div>
+
+<div class="footer">
+    Soon — Benne
+</div>
+
 </body>
 </html>
